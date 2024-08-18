@@ -91,13 +91,20 @@ class AddCategoryController extends GetxController {
   }
 
   Future<void> add() async {
+    if (categoryEmpty.isEmpty) {
+      Get.snackbar("Error", "No categories available to add.");
+      return;
+    }
+
     MyCategory dataAdd = categoryEmpty[currentIndex];
     dataAdd.name = categoryName.text.trim();
+
     await _categoryRepository.addNewCategory(dataAdd);
-    await _categoryRepository
-        .deletedImageCategory(categoryEmpty[currentIndex].id.toString());
-    updateMenuIconPaths();
+    await _categoryRepository.deletedImageCategory(categoryEmpty[currentIndex].id.toString());
+
+    await updateMenuIconPaths();
     categoryName.clear();
     Get.snackbar("Add successfully", "");
   }
+
 }
