@@ -169,6 +169,7 @@ class AddCategoryPage extends GetView<AddCategoryController> {
   Widget btnContinue() {
     return InkWell(
       onTap: () {
+        
         controller.add();
       },
       child: Container(

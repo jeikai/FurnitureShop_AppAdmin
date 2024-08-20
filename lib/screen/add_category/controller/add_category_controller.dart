@@ -9,7 +9,7 @@ class AddCategoryController extends GetxController {
   int currentIndex = 0;
   TextEditingController categoryName = TextEditingController();
   final CategoryRepository _categoryRepository = CategoryRepository();
-  
+
   @override
   void onInit() {
     super.onInit();
@@ -91,6 +91,7 @@ class AddCategoryController extends GetxController {
   }
 
   Future<void> add() async {
+    print(categoryName.text.trim());
     if (categoryEmpty.isEmpty) {
       Get.snackbar("Error", "No categories available to add.");
       return;
