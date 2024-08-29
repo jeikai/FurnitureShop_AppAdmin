@@ -27,7 +27,7 @@ const String titleAll = 'Tất cả';
 const String titleLoading = 'Preparing';
 const String titleDilivery = 'Delivery';
 const String titleFinish = 'Completed';
-const String sum_price = 'Sum Price';
+const String sum_price = 'Sum Price:';
 
 // String Using Details Product
 const String titleDetailsProduct = 'Order details';
@@ -132,7 +132,7 @@ const String enter_dis_score = 'Enter discount score ...';
 
 //DashBoard
 const String monthly_profits = 'Profit in ';
-const String user_in_lastweek = 'User in the last week';
+const String order_in_lastweek = 'Order in the last week';
 const String last_order = 'Last Orders';
 const String monthlyPro = 'Monthly Profits';
 const String total_profit = 'Total Profit Growth ';

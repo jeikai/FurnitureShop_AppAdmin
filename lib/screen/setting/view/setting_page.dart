@@ -121,25 +121,32 @@ class SettingPage extends GetView<SettingController> {
       ),
       child: Padding(
         padding: EdgeInsets.all(Get.height * 0.015),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontFamily: jose_fin_sans,
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: Colors.grey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontFamily: jose_fin_sans,
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Colors.grey,
+              ),
             ),
-          ),
-          SizedBox(height: Get.height * 0.005),
-          Text(
-            content,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
+            SizedBox(height: Get.height * 0.005),
+            Expanded( // Bọc Text content bằng Expanded
+              child: Text(
+                content,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                ),
+                overflow: TextOverflow.ellipsis, // Đảm bảo text không tràn
+                maxLines: 2, // Giới hạn số dòng hiển thị
+              ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }

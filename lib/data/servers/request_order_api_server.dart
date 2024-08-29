@@ -1,7 +1,7 @@
 import 'base_api_server.dart';
 
 class RequestOrderAPIServer {
-  String oderUrl() => "orders";
+  String oderUrl() => "request_order";
 
   static BaseAPIServer api = BaseAPIServer();
   Future<void> add(Map<String, dynamic> data) async {

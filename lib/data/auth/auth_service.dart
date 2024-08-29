@@ -46,7 +46,8 @@ class AuthService {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('account_admin')
           .where('email', isEqualTo: email)
-          .where('password', isEqualTo: password)
+          // .where('password', isEqualTo: password)
+          .limit(1)
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {

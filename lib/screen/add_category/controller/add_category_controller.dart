@@ -14,7 +14,7 @@ class AddCategoryController extends GetxController {
   void onInit() {
     super.onInit();
     updateMenuIconPaths();
-    // loadImageCategory();
+    loadImageCategory();
   }
 
   Future<void> loadImageCategory() async {

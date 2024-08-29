@@ -11,7 +11,7 @@ class DashboardRepository {
   double totalPrice(List<MyOrder.Order> orders) {
     double totalPrice = 0;
     for (var order in orders) {
-      totalPrice += order.priceTotal;
+      totalPrice += order.priceOrder;
     }
     return totalPrice;
   }
@@ -23,7 +23,7 @@ class DashboardRepository {
 
   int nextMonth(int month, int n) {
     month += n;
-    return (month % 13 == 13) ? 1 : month;
+    return (month % 13 == 0) ? 1 : month;
   }
 
   double getTangTruongPercent(List<MyOrder.Order> lastMonthOrders, List<MyOrder.Order> thisMonthOrders) {
@@ -123,7 +123,7 @@ class DashboardRepository {
   }
 
   int getIntThuNgay() {
-    String thuNgay = DateFormat('EEEEE', 'en_US').format(DateTime.now());
+    String thuNgay = DateFormat('EEEE', 'en_US').format(DateTime.now());
     switch (thuNgay) {
       case 'Monday':
         return 0;

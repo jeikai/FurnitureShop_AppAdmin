@@ -6,6 +6,7 @@ import 'package:furnitureshop_appadmin/data/values/fonts.dart';
 import 'package:furnitureshop_appadmin/data/values/strings.dart';
 import 'package:furnitureshop_appadmin/screen/order_request/controller/order_request_controller.dart';
 import 'package:furnitureshop_appadmin/screen/order_request_detail/view/order_requeset_detail_page.dart';
+import 'package:furnitureshop_appadmin/data/repository/request_order_repository.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -94,19 +95,19 @@ class OrderRequestPage extends GetView<OrderRequestController> {
                 ),
                 const Spacer(),
                 Row(
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       sum_price,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(width: 10),
-                    Text(
-                      '1.800.000 đ',
+                    const SizedBox(width: 10),
+                    Text (
+                      '${controller.totalPrice.toStringAsFixed(2)} đ',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                   ],
@@ -237,7 +238,7 @@ class OrderRequestPage extends GetView<OrderRequestController> {
                           ),
                           const Spacer(),
                           Text(
-                            controller.tab[index],
+                            RequestOrderRepository().statusOrderToString(order),
                             style: TextStyle(
                               fontSize: Get.height * 0.02,
                               fontWeight: FontWeight.w500,

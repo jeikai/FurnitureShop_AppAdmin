@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:furnitureshop_appadmin/data/auth/auth_service.dart';
-import 'package:furnitureshop_appadmin/data/models/Order.dart';
+import 'package:furnitureshop_appadmin/data/models/order.dart';
 import 'package:furnitureshop_appadmin/data/models/guarantee.dart';
 import 'package:furnitureshop_appadmin/data/models/notification.dart';
 // ignore: library_prefixes
@@ -48,8 +48,38 @@ class RequestOrderRepository {
     return 4;
   }
 
-  Future<void> updateStatus(
-      MyRequest.RequestOrder order, int index, UserProfile user) async {
+  Future<double> countTotalRequestOrderPrice() async {
+    CollectionReference collection = FirebaseFirestore.instance.collection('request_order');
+    double totalPrice = 0.0;
+
+    QuerySnapshot querySnapshot = await collection.get();
+    for (var doc in querySnapshot.docs) {
+      if (doc.exists) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        MyRequest.RequestOrder order = MyRequest.RequestOrder.fromMap(data, id: doc.id);
+        totalPrice += order.priceOrder?? 0.0;
+      }
+    }
+    return totalPrice;
+  }
+
+  String statusOrderToString(MyRequest.RequestOrder order) {
+    Map<int, String> value = {
+      0: "Ordered",
+      1: "Preparing",
+      2: "Delivery",
+      3: "Complete",
+      4: "Cancel"
+    };
+    for (int i = 0; i < order.status.length; i++) {
+      if (order.status[i].date == null) {
+        return value[i - 1].toString();
+      }
+    }
+    return "Cancel";
+  }
+
+  Future<void> updateStatus(MyRequest.RequestOrder order, int index, UserProfile user) async {
     order.status[index].date = DateTime.now();
     List<StatusOrder> status = order.status as List<StatusOrder>;
     await RequestOrderAPIServer().update(

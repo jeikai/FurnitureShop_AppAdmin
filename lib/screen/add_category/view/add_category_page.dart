@@ -150,16 +150,19 @@ class AddCategoryPage extends GetView<AddCategoryController> {
       child: Column(
         children: [
           SizedBox(height: Get.height * 0.024),
-          Container(
-            height: Get.height * 0.075,
-            width: Get.height * 0.075,
-            padding: EdgeInsets.all(Get.height * 0.024),
-            decoration: BoxDecoration(
+          Expanded( // hoặc Flexible
+            child: Container(
+              height: Get.height * 0.075,
+              width: Get.height * 0.075,
+              padding: EdgeInsets.all(Get.height * 0.024),
+              decoration: BoxDecoration(
                 color: onSelected
                     ? const Color.fromRGBO(250, 202, 123, 1)
                     : Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(10)),
-            child: Image.asset(iconPath),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Image.asset(iconPath),
+            ),
           ),
         ],
       ),

@@ -71,7 +71,7 @@ class Product {
       id: id,
       name: data["name"],
       price: data["price"],
-      imagePath: List<String>.from(data["image_path"]),
+      imagePath: List<String>.from(data["image_path"] ?? []),
       numberStart: data["number_start"] ?? 0.0,
       description: data["description"] ?? "",
       caption: data["caption"] ?? "",

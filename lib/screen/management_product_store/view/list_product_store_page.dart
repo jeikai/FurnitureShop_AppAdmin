@@ -78,37 +78,42 @@ class ManagementProductStorePage extends GetView<ManagementProductStoreControlle
                 child: Container(
                   alignment: Alignment.centerLeft,
                   height: Get.height * 0.124,
-                  // width: Get.height * 0.261,
                   padding: EdgeInsets.symmetric(horizontal: Get.height * 0.01),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        product.name.toString(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: Get.height * 0.016,
-                          color: textGrey3Color,
-                          fontWeight: FontWeight.w500,
+                      Flexible(
+                        child: Text(
+                          product.name.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: Get.height * 0.016,
+                            color: textGrey3Color,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                      Text(
-                        'Price: ' + '\$${product.price.toString()}',
-                        style: TextStyle(
-                          fontSize: Get.height * 0.016,
-                          color: textGrey3Color,
-                          fontWeight: FontWeight.w500,
+                      Flexible(
+                        child: Text(
+                          'Price: ' + '\$${product.price.toString()}',
+                          style: TextStyle(
+                            fontSize: Get.height * 0.016,
+                            color: textGrey3Color,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                       Row(
                         children: [
-                          Text(
-                            'Color: ',
-                            style: TextStyle(
-                              fontSize: Get.height * 0.016,
-                              color: textGrey3Color,
-                              fontWeight: FontWeight.w500,
+                          Flexible(
+                            child: Text(
+                              'Color: ',
+                              style: TextStyle(
+                                fontSize: Get.height * 0.016,
+                                color: textGrey3Color,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                           Container(
@@ -118,15 +123,17 @@ class ManagementProductStorePage extends GetView<ManagementProductStoreControlle
                               borderRadius: BorderRadius.circular(50),
                               color: product.imageColorTheme,
                             ),
-                          )
+                          ),
                         ],
                       ),
-                      Text(
-                        'Amount: ${product.number}',
-                        style: TextStyle(
-                          fontSize: Get.height * 0.016,
-                          color: textGrey3Color,
-                          fontWeight: FontWeight.w500,
+                      Flexible(
+                        child: Text(
+                          'Amount: ${product.number}',
+                          style: TextStyle(
+                            fontSize: Get.height * 0.016,
+                            color: textGrey3Color,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],

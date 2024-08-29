@@ -47,6 +47,10 @@ class OrderRequestDetailController extends GetxController {
     }
   }
 
+  // Future<void> cancleOrder() {
+  //
+  // }
+
   void selectedImage() async {
     images = await _picker.pickMultiImage();
     if (images != null) {

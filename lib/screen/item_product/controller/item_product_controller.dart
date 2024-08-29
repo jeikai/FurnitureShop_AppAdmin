@@ -27,8 +27,8 @@ class ItemProductController extends GetxController {
     if (Get.arguments['category_path'] != null) {
       products = await ProductRepository().getProductsByCategory(Get.arguments['category_path']);
       update();
-      product = await ProductRepository().getProduct(Get.arguments['product']);
-      update();
+      // product = await ProductRepository().getProduct(Get.arguments['product']);
+      // update();
     }
   }
 

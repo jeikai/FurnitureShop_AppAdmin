@@ -18,9 +18,9 @@ class DashBoardPage extends GetView<DashBoardController> {
   Widget build(BuildContext context) {
     return GetBuilder<DashBoardController>(
         builder: (value) => Scaffold(
-              appBar: appBarCustom(),
-              body: buildBody(),
-            ));
+          appBar: appBarCustom(),
+          body: buildBody(),
+        ));
   }
 
   SizedBox buildBody() {
@@ -257,13 +257,13 @@ class DashBoardPage extends GetView<DashBoardController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            user_in_lastweek,
+            order_in_lastweek,
             textAlign: TextAlign.start,
             style: TextStyle(fontSize: 20, fontFamily: jose_fin_sans, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 10),
           Text(
-            'User_Week',
+            'Order per day',
             textAlign: TextAlign.start,
             style: TextStyle(fontSize: 18, fontFamily: jose_fin_sans, fontWeight: FontWeight.w700),
           ),
@@ -305,37 +305,26 @@ class DashBoardPage extends GetView<DashBoardController> {
             '\$${value.totalPrice!.toStringAsFixed(2)}',
             style: const TextStyle(fontSize: 50, fontWeight: FontWeight.w900),
           ),
-          graphMonth(),
+          graphMonth(value),
         ],
       ),
     );
   }
 
-  Widget graphMonth() {
+  Widget graphMonth(MyDashBoard value) {
+    List<FlSpot> spot = controller.lineDataSpot[value.month as int];
     return SizedBox(
       height: 90,
       child: LineChart(
         LineChartData(
           minX: 0,
-          maxX: 10,
+          maxX: 5,
           minY: 0,
           maxY: 10,
           borderData: FlBorderData(border: const Border()),
           lineBarsData: [
             LineChartBarData(
-              spots: [
-                const FlSpot(0, 4),
-                const FlSpot(1, 6),
-                const FlSpot(2, 8),
-                const FlSpot(3, 6.2),
-                const FlSpot(4, 6),
-                const FlSpot(5, 8),
-                const FlSpot(6, 9),
-                const FlSpot(7, 7),
-                const FlSpot(8, 6),
-                const FlSpot(9, 7.8),
-                const FlSpot(10, 8),
-              ],
+              spots: spot,
               isCurved: true,
               gradient: const LinearGradient(
                 colors: [
@@ -403,27 +392,27 @@ class DashBoardPage extends GetView<DashBoardController> {
   }
 
   BarTouchData get barTouchData => BarTouchData(
-        enabled: false,
-        touchTooltipData: BarTouchTooltipData(
-          // tooltipBgColor: Colors.transparent,
-          tooltipPadding: EdgeInsets.zero,
-          tooltipMargin: 20,
-          getTooltipItem: (
-            BarChartGroupData group,
-            int groupIndex,
-            BarChartRodData rod,
-            int rodIndex,
+    enabled: false,
+    touchTooltipData: BarTouchTooltipData(
+      // tooltipBgColor: Colors.transparent,
+      tooltipPadding: EdgeInsets.zero,
+      tooltipMargin: 20,
+      getTooltipItem: (
+          BarChartGroupData group,
+          int groupIndex,
+          BarChartRodData rod,
+          int rodIndex,
           ) {
-            return BarTooltipItem(
-              rod.toY.round().toString(),
-              const TextStyle(
-                color: textBlackColor,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          },
-        ),
-      );
+        return BarTooltipItem(
+          rod.toY.round().toString(),
+          const TextStyle(
+            color: textBlackColor,
+            fontWeight: FontWeight.bold,
+          ),
+        );
+      },
+    ),
+  );
 
   Widget getTitles(double value, TitleMeta meta) {
     const style = TextStyle(
@@ -437,13 +426,13 @@ class DashBoardPage extends GetView<DashBoardController> {
         text = 'Mn';
         break;
       case 1:
-        text = 'Te';
+        text = 'Tu';
         break;
       case 2:
         text = 'Wd';
         break;
       case 3:
-        text = 'Tu';
+        text = 'Th';
         break;
       case 4:
         text = 'Fr';
@@ -466,124 +455,124 @@ class DashBoardPage extends GetView<DashBoardController> {
   }
 
   FlTitlesData get titlesData => FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 50,
-            getTitlesWidget: getTitles,
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        topTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        rightTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-      );
+    show: true,
+    bottomTitles: AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        reservedSize: 50,
+        getTitlesWidget: getTitles,
+      ),
+    ),
+    leftTitles: AxisTitles(
+      sideTitles: SideTitles(showTitles: false),
+    ),
+    topTitles: AxisTitles(
+      sideTitles: SideTitles(showTitles: false),
+    ),
+    rightTitles: AxisTitles(
+      sideTitles: SideTitles(showTitles: false),
+    ),
+  );
 
   FlBorderData get borderData => FlBorderData(
-        show: false,
-      );
+    show: false,
+  );
 
   LinearGradient get _barsGradient => LinearGradient(
-        colors: [
-          Colors.purple.withOpacity(0.2),
-          Colors.pink.withOpacity(0.2),
-        ],
-        begin: Alignment.bottomCenter,
-        end: Alignment.topCenter,
-      );
+    colors: [
+      Colors.purple.withOpacity(0.2),
+      Colors.pink.withOpacity(0.2),
+    ],
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+  );
 
   List<BarChartGroupData> get barGroups => [
-        BarChartGroupData(
-          x: 0,
-          barRods: [
-            BarChartRodData(
-              toY: controller.userOrderInWeek[0],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [
-            0
-          ],
-        ),
-        BarChartGroupData(
-          x: 1,
-          barRods: [
-            BarChartRodData(
-              toY: controller.userOrderInWeek[1],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [
-            0
-          ],
-        ),
-        BarChartGroupData(
-          x: 2,
-          barRods: [
-            BarChartRodData(
-              toY: controller.userOrderInWeek[2],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [
-            0
-          ],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: [
-            BarChartRodData(
-              toY: controller.userOrderInWeek[3],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [
-            0
-          ],
-        ),
-        BarChartGroupData(
-          x: 4,
-          barRods: [
-            BarChartRodData(
-              toY: controller.userOrderInWeek[4],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [
-            0
-          ],
-        ),
-        BarChartGroupData(
-          x: 5,
-          barRods: [
-            BarChartRodData(
-              toY: controller.userOrderInWeek[5],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [
-            0
-          ],
-        ),
-        BarChartGroupData(
-          x: 6,
-          barRods: [
-            BarChartRodData(
-              toY: controller.userOrderInWeek[6],
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [
-            0
-          ],
-        ),
-      ];
+    BarChartGroupData(
+      x: 0,
+      barRods: [
+        BarChartRodData(
+          toY: controller.userOrderInWeek[0],
+          gradient: _barsGradient,
+        )
+      ],
+      showingTooltipIndicators: [
+        0
+      ],
+    ),
+    BarChartGroupData(
+      x: 1,
+      barRods: [
+        BarChartRodData(
+          toY: controller.userOrderInWeek[1],
+          gradient: _barsGradient,
+        )
+      ],
+      showingTooltipIndicators: [
+        0
+      ],
+    ),
+    BarChartGroupData(
+      x: 2,
+      barRods: [
+        BarChartRodData(
+          toY: controller.userOrderInWeek[2],
+          gradient: _barsGradient,
+        )
+      ],
+      showingTooltipIndicators: [
+        0
+      ],
+    ),
+    BarChartGroupData(
+      x: 3,
+      barRods: [
+        BarChartRodData(
+          toY: controller.userOrderInWeek[3],
+          gradient: _barsGradient,
+        )
+      ],
+      showingTooltipIndicators: [
+        0
+      ],
+    ),
+    BarChartGroupData(
+      x: 4,
+      barRods: [
+        BarChartRodData(
+          toY: controller.userOrderInWeek[4],
+          gradient: _barsGradient,
+        )
+      ],
+      showingTooltipIndicators: [
+        0
+      ],
+    ),
+    BarChartGroupData(
+      x: 5,
+      barRods: [
+        BarChartRodData(
+          toY: controller.userOrderInWeek[5],
+          gradient: _barsGradient,
+        )
+      ],
+      showingTooltipIndicators: [
+        0
+      ],
+    ),
+    BarChartGroupData(
+      x: 6,
+      barRods: [
+        BarChartRodData(
+          toY: controller.userOrderInWeek[6],
+          gradient: _barsGradient,
+        )
+      ],
+      showingTooltipIndicators: [
+        0
+      ],
+    ),
+  ];
 
   Container lastOrder() {
     return Container(
@@ -619,9 +608,9 @@ class DashBoardPage extends GetView<DashBoardController> {
           SizedBox(
             height: 200,
             child: ListView.builder(
-                itemCount: controller.db.length,
+                itemCount: controller.recentSale_.length,
                 itemBuilder: (BuildContext context, int itemIndex) {
-                  return lastOrderItem(controller.db[itemIndex]);
+                  return lastOrderItem(controller.recentSale_[itemIndex]);
                 }),
           ),
         ],
@@ -648,7 +637,7 @@ class DashBoardPage extends GetView<DashBoardController> {
         const SizedBox(width: 10),
         Expanded(
           child: Text(
-            value.username.toString(),
+            value.name.toString(),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(fontFamily: jose_fin_sans, fontWeight: FontWeight.w500, fontSize: 14),
@@ -657,14 +646,14 @@ class DashBoardPage extends GetView<DashBoardController> {
         const SizedBox(width: 10),
         Expanded(
           child: Text(
-            '\$${value.totalPrice!.toStringAsFixed(2)}',
+            '\$${value.money!.toStringAsFixed(2)}',
             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: Text(
-            value.dateTime.toString(),
+            value.time.toString(),
             style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
           ),
         ),

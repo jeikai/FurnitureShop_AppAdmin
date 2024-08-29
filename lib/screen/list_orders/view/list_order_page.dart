@@ -110,7 +110,7 @@ class ListOrderPage extends GetView<ListOrderController> {
                   ),
                 ),
                 Text(
-                  ': ${controller.totalPrice}đ',
+                  ': ${controller.totalPrice.toStringAsFixed(2)}đ',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
               ],

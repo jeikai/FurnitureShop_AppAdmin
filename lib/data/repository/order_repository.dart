@@ -58,6 +58,30 @@ class OrderRepository {
     return orders;
   }
 
+  Future<List<int>> getOrderByWeekInMonth(DateTime month) async {
+    CollectionReference orderCollection = FirebaseFirestore.instance.collection('orders');
+    List<List<MyOrder.Order>> ordersByWeek = [];
+
+    QuerySnapshot orderSnapshot = await orderCollection.get();
+    for (var orderDoc in orderSnapshot.docs) {
+      if (orderDoc.exists) {
+        Map<String, dynamic> orderData = orderDoc.data() as Map<String, dynamic>;
+        MyOrder.Order order = MyOrder.Order.fromMap(orderData, id: orderDoc.id);
+
+        DateTime orderDate = this.orderDate(order);
+        if (orderDate.year == month.year && orderDate.month == month.month) {
+          int weekOfMonth = _weekOfMonth(orderDate);
+          while (weekOfMonth >= ordersByWeek.length) {
+            ordersByWeek.add([]);
+          }
+          ordersByWeek[weekOfMonth].add(order);
+        }
+      }
+    }
+    List<int> totalOrdersByWeek = ordersByWeek.map((orders) => orders.length).toList();
+    return totalOrdersByWeek;
+  }
+
   Future<List<MyOrder.Order>> getOrdersMax() async {
     CollectionReference collection = FirebaseFirestore.instance.collection('orders');
     List<MyOrder.Order> orders = [];
@@ -77,6 +101,7 @@ class OrderRepository {
 
   Future<List<MyOrder.Order>> getOrdersRecently(DateTime dateTime) async {
     CollectionReference collection = FirebaseFirestore.instance.collection('orders');
+    CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
     List<MyOrder.Order> orders = [];
     await collection.get().then((QuerySnapshot querySnapshot) {
       var result = querySnapshot.docs.map((doc) {
@@ -90,6 +115,13 @@ class OrderRepository {
       }).toList();
     });
     return orders;
+  }
+
+  int _weekOfMonth(DateTime date) {
+    int dayOfMonth = date.day;
+    DateTime firstDayOfMonth = DateTime(date.year, date.month, 1);
+    int firstWeekday = firstDayOfMonth.weekday;
+    return ((dayOfMonth + firstWeekday - 2) / 7).floor();
   }
 
   String statusOrderToString(MyOrder.Order order) {

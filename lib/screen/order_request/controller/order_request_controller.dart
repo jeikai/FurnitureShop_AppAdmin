@@ -10,8 +10,8 @@ class OrderRequestController extends GetxController {
   List<String> tab = [
     'Ordered',
     'Preparing',
-    'Delivered',
-    'Complete',
+    'Delivery',
+    'Completed',
     'Cancel'
   ];
   Rx<int> tabCurrentIndex = 0.obs;
@@ -82,9 +82,9 @@ class OrderRequestController extends GetxController {
     totalOrder = await RequestOrderRepository().getOrders();
     totalPrice = 0;
     for (int i = 0; i < totalOrder.length; i++) {
-      if (RequestOrderRepository().statusRequestOrderToString(totalOrder[i]) !=
+      if (RequestOrderRepository().statusOrderToString(totalOrder[i]) !=
           'Completed') {
-        //totalPrice += totalOrder[i].priceTotal;
+        totalPrice += totalOrder[i].priceOrder!;
       }
     }
     onChangePage(numberPage);
@@ -148,14 +148,14 @@ class OrderRequestController extends GetxController {
             TextButton(
               child: Text('No'),
               onPressed: () {
-                if (loadTransferStatus == false) Navigator.of(context).pop();
+                if (loadTransferStatus.value == false) Navigator.of(context).pop();
               },
             ),
             TextButton(
                 child: Obx(() =>
                     Text(loadTransferStatus.value ? 'Loading...' : 'Yes')),
                 onPressed: () async {
-                  if (loadTransferStatus == false) {
+                  if (loadTransferStatus.value == false) {
                     loadTransferStatus.value = true;
                     await changeStatusOrder(numberStatus);
                     await loadTotalOrder(numberPage: numberStatus - 1);

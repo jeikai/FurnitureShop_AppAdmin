@@ -116,7 +116,16 @@ class ItemProductPage extends GetView<ItemProductController> {
             height: Get.width * 0.2,
             width: Get.width * 0.2,
             margin: const EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), image: DecorationImage(image: NetworkImage(product.imagePath?[0] ?? ''), fit: BoxFit.cover)),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                image: DecorationImage(
+                    image: NetworkImage(
+                      (product.imagePath != null && product.imagePath!.isNotEmpty)
+                          ? product.imagePath![0]
+                          : '',
+                    ),
+                    fit: BoxFit.cover)
+            ),
           ),
           Container(
             width: Get.width * 0.8 - 80,
