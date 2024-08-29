@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnitureshop_appadmin/data/models/request_order.dart';
+import 'package:furnitureshop_appadmin/data/repository/request_order_repository.dart';
 import 'package:furnitureshop_appadmin/data/values/colors.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,10 +48,6 @@ class OrderRequestDetailController extends GetxController {
     }
   }
 
-  // Future<void> cancleOrder() {
-  //
-  // }
-
   void selectedImage() async {
     images = await _picker.pickMultiImage();
     if (images != null) {
@@ -67,5 +64,9 @@ class OrderRequestDetailController extends GetxController {
     listImagePath.removeAt(index);
     update();
     print(index);
+  }
+
+  void cancelOrder(String id) async {
+    await RequestOrderRepository().cancelOrder(id, reasonText.text);
   }
 }

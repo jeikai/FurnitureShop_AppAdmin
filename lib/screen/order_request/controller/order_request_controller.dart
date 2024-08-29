@@ -57,12 +57,14 @@ class OrderRequestController extends GetxController {
   }
 
   void onChangePage(int index) async {
+    print("Index: ${index}");
     load = true;
     update();
     tabCurrentIndex.value = index;
     orders = [];
     for (int i = 0; i < totalOrder.length; i++) {
-      if (RequestOrderRepository().statusRequestOrderToString(totalOrder[i]) ==
+      print(RequestOrderRepository().statusRequestOrderToInt(totalOrder[i]));
+      if (RequestOrderRepository().statusRequestOrderToInt(totalOrder[i]) ==
           index) {
         orders.add(totalOrder[i]);
         users.add(

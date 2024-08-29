@@ -337,9 +337,10 @@ class OrderRequestDetailPage extends GetView<OrderRequestDetailController> {
                           SizedBox(
                             height: 10,
                           ),
-                          _attachPicture(),
+                          // _attachPicture(),
                           InkWell(
                             onTap: () {
+                              controller.cancelOrder(controller.orders.id!);
                               Navigator.of(context).pop();
                             },
                             child: Container(
@@ -373,25 +374,25 @@ class OrderRequestDetailPage extends GetView<OrderRequestDetailController> {
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => _bottomSheet(context),
-              );
-            },
-            child: Container(
-              margin: const EdgeInsets.all(7),
-              width: Get.width * 0.45,
-              color: buttonColor,
-              padding: const EdgeInsets.all(12),
-              child: Text(
-                complete.toUpperCase(),
-                style: const TextStyle(color: Colors.white, fontSize: 12),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
+          // InkWell(
+          //   onTap: () {
+          //     showModalBottomSheet(
+          //       context: context,
+          //       builder: (context) => _bottomSheet(context),
+          //     );
+          //   },
+          //   child: Container(
+          //     margin: const EdgeInsets.all(7),
+          //     width: Get.width * 0.45,
+          //     color: buttonColor,
+          //     padding: const EdgeInsets.all(12),
+          //     child: Text(
+          //       complete.toUpperCase(),
+          //       style: const TextStyle(color: Colors.white, fontSize: 12),
+          //       textAlign: TextAlign.center,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

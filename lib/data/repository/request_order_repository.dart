@@ -12,6 +12,8 @@ import 'package:furnitureshop_appadmin/data/repository/guarantee_repository.dart
 import 'package:furnitureshop_appadmin/data/repository/notification_repository.dart';
 import 'package:furnitureshop_appadmin/data/repository/review_repository.dart';
 import 'package:furnitureshop_appadmin/data/servers/request_order_api_server.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class RequestOrderRepository {
   Future<List<MyRequest.RequestOrder>> getOrders() async {
@@ -32,14 +34,10 @@ class RequestOrderRepository {
     return orders;
   }
 
-  int statusRequestOrderToString(MyRequest.RequestOrder order) {
-    Map<int, String> value = {
-      0: "Ordered",
-      1: "Preparing",
-      2: "Delivery",
-      3: "Completed",
-      4: "Cancel"
-    };
+  int statusRequestOrderToInt(MyRequest.RequestOrder order) {
+    if (order.status[4].date != null) {
+      return 4;
+    }
     for (int i = 0; i < order.status.length; i++) {
       if (order.status[i].date == null) {
         return i - 1;
@@ -71,6 +69,9 @@ class RequestOrderRepository {
       3: "Complete",
       4: "Cancel"
     };
+    if (order.status[4].date != null) {
+      return value[4].toString();
+    }
     for (int i = 0; i < order.status.length; i++) {
       if (order.status[i].date == null) {
         return value[i - 1].toString();
@@ -127,6 +128,33 @@ class RequestOrderRepository {
       //   ),
       // );
       //}
+    }
+  }
+  Future<void> cancelOrder(String id, String reasonText) async {
+    try {
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection("request_order")
+          .doc(id)
+          .get();
+      List<dynamic> statusArray = documentSnapshot.get('status');
+      for (var statusMap in statusArray) {
+        if (statusMap['status'] == 'Cancel') {
+          statusMap['date'] = Timestamp.fromDate(DateTime.now());
+        }
+      }
+
+      // Update the document with the modified status array
+      await FirebaseFirestore.instance
+          .collection("request_order")
+          .doc(id)
+          .update({
+            "status": statusArray,
+            "update_time": Timestamp.fromDate(DateTime.now()),
+            "reason_text": reasonText
+          });
+        Get.snackbar('Order Canceled', 'Your order has been successfully canceled.');
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to cancel the order. Please try again.');
     }
   }
 }

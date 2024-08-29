@@ -16,12 +16,12 @@ class ChangePassword extends GetView<ChangePasswordController> {
   Widget build(BuildContext context) {
     return GetBuilder<ChangePasswordController>(
         builder: (value) => Scaffold(
-              appBar: appBarCustom(),
-              body: Container(
-                color: backgroundColor,
-                child: buildBody(),
-              ),
-            ));
+          appBar: appBarCustom(),
+          body: Container(
+            color: backgroundColor,
+            child: buildBody(),
+          ),
+        ));
   }
 
   Widget buildBody() {
@@ -54,7 +54,7 @@ class ChangePassword extends GetView<ChangePasswordController> {
       centerTitle: true,
       backgroundColor: backgroundColor,
       leading: IconButton(
-        onPressed: () => Get.to(ProfilePage()),
+        onPressed: () => Get.back(),
         icon: Icon(
           Icons.arrow_back_ios,
           color: Colors.black,
@@ -88,9 +88,9 @@ class ChangePassword extends GetView<ChangePasswordController> {
             onPressed: () {},
           ),
           prefixIconColor: MaterialStateColor.resolveWith((states) =>
-              states.contains(MaterialState.focused)
-                  ? Colors.black
-                  : Colors.grey)),
+          states.contains(MaterialState.focused)
+              ? Colors.black
+              : Colors.grey)),
       obscureText: true,
       textInputAction: TextInputAction.done,
     );
@@ -98,10 +98,12 @@ class ChangePassword extends GetView<ChangePasswordController> {
 
   Widget addSave() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        controller.savePasswordChange();
+      },
       child: Container(
           margin:
-              const EdgeInsets.only(bottom: 10, left: 20, right: 20, top: 20),
+          const EdgeInsets.only(bottom: 10, left: 20, right: 20, top: 20),
           padding: const EdgeInsets.symmetric(vertical: 15),
           width: Get.width,
           decoration: BoxDecoration(

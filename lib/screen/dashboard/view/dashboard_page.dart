@@ -290,14 +290,16 @@ class DashBoardPage extends GetView<DashBoardController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                monthly_profits + controller.format(value.month),
-                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+              Expanded(
+                child: Text(
+                  monthly_profits + controller.format(value.month),
+                  style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+                ),
               ),
               Text(
                 '+ ${value.profit!.toStringAsFixed(2)} %',
                 style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 20),
@@ -305,7 +307,7 @@ class DashBoardPage extends GetView<DashBoardController> {
             '\$${value.totalPrice!.toStringAsFixed(2)}',
             style: const TextStyle(fontSize: 50, fontWeight: FontWeight.w900),
           ),
-          graphMonth(value),
+          Expanded(child: graphMonth(value)), // Giả sử `graphMonth` là một widget có thể co giãn
         ],
       ),
     );

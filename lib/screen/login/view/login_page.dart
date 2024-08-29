@@ -156,18 +156,18 @@ class LoginPage extends GetView<LoginController> {
                           SizedBox(
                             height: Get.height * 0.05,
                           ),
-                          GestureDetector(
-                            child: Text(
-                              forgetPassword,
-                              style: TextStyle(
-                                fontFamily: 'JosefinSans',
-                                // ---TODO CHANGE FONT TEXT FINAL------------
-                                fontSize: Get.height * 0.018,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            onTap: () {},
-                          ),
+                          // GestureDetector(
+                          //   child: Text(
+                          //     forgetPassword,
+                          //     style: TextStyle(
+                          //       fontFamily: 'JosefinSans',
+                          //       // ---TODO CHANGE FONT TEXT FINAL------------
+                          //       fontSize: Get.height * 0.018,
+                          //       fontWeight: FontWeight.w600,
+                          //     ),
+                          //   ),
+                          //   onTap: () {},
+                          // ),
                           SizedBox(
                             height: Get.height * 0.05,
                           ),
