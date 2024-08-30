@@ -19,6 +19,8 @@ import 'package:furnitureshop_appadmin/screen/setting/view/setting_page.dart';
 import 'package:furnitureshop_appadmin/screen/upload_products/view/upload_products_page.dart';
 import 'package:get/get.dart';
 
+import '../login/view/login_page.dart';
+
 class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({super.key});
 
@@ -192,6 +194,8 @@ class ProfilePage extends GetView<ProfileController> {
     return InkWell(
       onTap: () {
         AuthService.signOut();
+        Get.back();
+        Get.to(() => const LoginPage());
       },
       child: Container(
         width: 50,

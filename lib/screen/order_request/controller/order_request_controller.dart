@@ -63,7 +63,6 @@ class OrderRequestController extends GetxController {
     tabCurrentIndex.value = index;
     orders = [];
     for (int i = 0; i < totalOrder.length; i++) {
-      print(RequestOrderRepository().statusRequestOrderToInt(totalOrder[i]));
       if (RequestOrderRepository().statusRequestOrderToInt(totalOrder[i]) ==
           index) {
         orders.add(totalOrder[i]);
