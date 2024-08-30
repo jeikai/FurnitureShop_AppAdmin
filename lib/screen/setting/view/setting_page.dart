@@ -34,9 +34,9 @@ class SettingPage extends GetView<SettingController> {
       width: Get.width,
       child: SingleChildScrollView(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          titleEdit(personalInfo, icon_edit, () async {
-            var result = await Get.to(const EditProfilePage(),
-                arguments: {'admin': controller.admin});
+          titleEdit(personalInfo, null, () async {
+            // var result = await Get.to(const EditProfilePage(),
+            //     arguments: {'admin': controller.admin});
             //if (result) controller.loadPage();
           }),
 

@@ -21,17 +21,17 @@ class BottomBarController extends GetxController {
       icon_activity,
       icon_order,
       icon_require,
-      icon_guarantee,
+      // icon_guarantee,
       icon_user
     ];
   }
 
   Widget getBody() {
     if (indexCurren.value == 0) return const DashBoardPage();
-    if (indexCurren.value == 3) return GuarenteePage();
+    // if (indexCurren.value == 3) return GuarenteePage();
     if (indexCurren.value == 1) return const ListOrderPage();
     if (indexCurren.value == 2) return const OrderRequestPage();
-    if (indexCurren.value == 4) return const ProfilePage();
+    if (indexCurren.value == 3) return const ProfilePage();
     return Container();
   }
 
