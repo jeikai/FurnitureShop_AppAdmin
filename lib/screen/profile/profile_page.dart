@@ -118,7 +118,7 @@ class ProfilePage extends GetView<ProfileController> {
       backgroundColor: backgroundColor,
       actions: [
         SizedBox(
-            height: Get.height * 0.01,
+            height: Get.height * 0.1,
             width: Get.width * 0.1,
             child: IconButton(
                 onPressed: () {

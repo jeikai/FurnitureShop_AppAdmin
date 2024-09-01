@@ -144,13 +144,13 @@ class ChatHomePage extends GetView<ChatHomeController> {
               color: Colors.black,
             )),
       ),
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.search),
-          color: Colors.black,
-          onPressed: () {},
-        ),
-      ],
+      // actions: <Widget>[
+      //   IconButton(
+      //     icon: const Icon(Icons.search),
+      //     color: Colors.black,
+      //     onPressed: () {},
+      //   ),
+      // ],
     );
   }
 }
