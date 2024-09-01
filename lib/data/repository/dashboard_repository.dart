@@ -103,20 +103,18 @@ class DashboardRepository {
 
   Future<List<double>> table2() async {
     int index = getIntThuNgay();
-    List<double> map = [];
-    map.addAll(List.filled(7, 0));
-    int day = DateTime.now().day - index;
+    List<double> map = List.filled(7, 0, growable: true);
     DateTime now = DateTime.now();
-    List<MyOrder.Order> order = await OrderRepository().getOrdersRecently(DateTime(now.year, now.month, day));
+    DateTime startDay = DateTime(now.year, now.month, now.day - index);
+    List<MyOrder.Order> order = await OrderRepository().getOrdersRecently(startDay);
     for (int i = 0; i < order.length; i++) {
-      int t = OrderRepository().orderDate(order[i]).day;
-      int j = now.day - t;
-      map[index - j] = map[index - j] + 1;
+      DateTime orderDate = OrderRepository().orderDate(order[i]);
+      int j = now.difference(orderDate).inDays;
+      if (j >= 0 && j < 7) {
+        map[index - j] = map[index - j] + 1;
+      }
     }
-    double max = 0;
-    for (int i = 0; i < 7; i++) {
-      if (map[i] > max) max = map[i];
-    }
+    double max = map.reduce((a, b) => a > b ? a : b);
     max += 3;
     map.add(max);
     return map;

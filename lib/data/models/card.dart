@@ -8,14 +8,14 @@ class Card {
   String numberCard;
   String cardCVV;
   DateTime EXD;
-  Bank bank;
+  Bank? bank;
   Card({
     required this.id,
     required this.cardHolderName,
     required this.numberCard,
     required this.cardCVV,
     required this.EXD,
-    required this.bank,
+    this.bank,
   });
 
   Card copyWith({
@@ -43,7 +43,7 @@ class Card {
       'numberCard': numberCard,
       'cardCVV': cardCVV,
       'EXD': EXD.millisecondsSinceEpoch,
-      'bank': bank.toMap(),
+      'bank': bank?.toMap(),
     };
   }
 
@@ -54,7 +54,7 @@ class Card {
       numberCard: map['numberCard'] as String,
       cardCVV: map['cardCVV'] as String,
       EXD: DateTime.fromMillisecondsSinceEpoch(map['EXD'] as int),
-      bank: Bank.fromMap(map['bank'] as Map<String, dynamic>),
+      bank: map['bank'] != null ? Bank.fromMap(map['bank'] as Map<String, dynamic>) : null,
     );
   }
 

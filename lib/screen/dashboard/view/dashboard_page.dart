@@ -213,7 +213,7 @@ class DashBoardPage extends GetView<DashBoardController> {
               ),
             ),
             Text(
-              '\$${value.totalProfit}',
+              '\$${value.totalProfit?.toStringAsFixed(2)}',
               style: TextStyle(fontSize: Get.height * 0.031, color: Colors.black, fontWeight: FontWeight.w900),
             ),
           ],

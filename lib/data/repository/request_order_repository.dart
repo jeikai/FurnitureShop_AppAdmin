@@ -48,14 +48,28 @@ class RequestOrderRepository {
 
   Future<double> countTotalRequestOrderPrice() async {
     CollectionReference collection = FirebaseFirestore.instance.collection('request_order');
+    List<MyRequest.RequestOrder> orders = [];
+    await collection.get().then((QuerySnapshot querySnapshot) {
+      orders = querySnapshot.docs.map((doc) {
+        if (doc.exists) {
+          Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+          MyRequest.RequestOrder a =
+          MyRequest.RequestOrder.fromMap(data, id: doc.id);
+          return a;
+        }
+        return MyRequest.RequestOrder.empty();
+      }).toList();
+    });
+    DateTime now = DateTime.now();
+    DateTime startOfMonth = DateTime(now.year, now.month, 1);
+    DateTime endOfMonth = DateTime(now.year, now.month + 1, 1).subtract(Duration(days: 1));
     double totalPrice = 0.0;
-
-    QuerySnapshot querySnapshot = await collection.get();
-    for (var doc in querySnapshot.docs) {
-      if (doc.exists) {
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        MyRequest.RequestOrder order = MyRequest.RequestOrder.fromMap(data, id: doc.id);
-        totalPrice += order.priceOrder?? 0.0;
+    for (MyRequest.RequestOrder requestOrder in orders) {
+      if (statusOrderToString(requestOrder) == 'Complete'
+          && requestOrder.status[3].date!.isAfter(startOfMonth)
+          && requestOrder.status[3].date!.isBefore(endOfMonth.add(Duration(days: 1)))
+      ) {
+        totalPrice += requestOrder.priceOrder?? 0.0;
       }
     }
     return totalPrice;

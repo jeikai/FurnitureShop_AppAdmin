@@ -114,6 +114,7 @@ class OrderRepository {
         return MyOrder.Order.empty();
       }).toList();
     });
+    orders.sort((a, b) => orderDate(b).compareTo(orderDate(a)));
     return orders;
   }
 
